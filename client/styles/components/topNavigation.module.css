@@ -1,0 +1,58 @@
+.topNavContainer {
+    position: relative;
+    display: flex;
+    background-color: #0c151c;
+    padding: 0 1rem;
+    align-items: center;
+    color: white;
+}
+.navbarLogo{
+    display: inline-block;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 1rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+.navbarLogo>img{
+    width: 24px;
+    vertical-align: middle;
+}
+.breadcrumb{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 1px;
+    list-style: none;
+    font-size: 14px;
+}
+.breadcrumb>li+li::before{
+    padding: 0 4px;
+    font-family: sans-serif;
+    content: "〉\00a0";
+    color: #98a8b9;
+}
+.breadcrumb>li>a{
+    color: #98a8b9;
+}
+
+.navbarRight{
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.navbarRightUl{
+    margin-left: auto;
+    display: flex;
+    list-style: none;
+    color: #98a8b9;
+}
+.navbarRightUl>li>a{
+    margin-left: 10px;
+    color: #B2C0CC;
+    font-weight: 500;
+    font-size: 16px;
+}
+.navbarRightUl>li::before{
+    content: "\00a0";
+}

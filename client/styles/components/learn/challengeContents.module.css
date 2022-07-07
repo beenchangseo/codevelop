@@ -1,0 +1,63 @@
+/*challenge-contents*/
+
+.challengeContents{
+    display: block;
+    background-color: #263747;
+}
+.mainSection{
+    display: flex;
+}
+.problemSection{
+    padding: 1rem;
+    overflow-y: auto;
+    width: 50%;
+}
+.problemContents{
+    color: white;
+}
+
+.solutionSections{
+    display: block;
+    flex-grow: 1;
+}
+
+.gutter{
+    width: 24px;
+    background: url("/img-grippie-vertical.png") no-repeat 0.625rem 50%;
+    background-size: 0.875rem 2.25rem;
+    border-right: 0.0625rem solid #172334;
+    cursor: ew-resize;
+}
+
+.codeSections{
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+.codeSections > ul {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+.codeNav{
+    display: flex;
+    border-bottom: 0.0625rem solid #172334;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.code{
+    border-bottom: 0.0625rem solid #172334;
+}
+
+.outputSections{
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.buttonSection{
+
+}
