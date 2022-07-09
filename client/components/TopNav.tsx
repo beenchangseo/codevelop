@@ -21,7 +21,7 @@ const TopNav = () => {
                             <a href={'/'}>도움말</a>
                         </li>
                         <li>
-                            <a href={'/'}>로그인</a>
+경                            <a href={'/auth/login'}>로그인</a>
                         </li>
                     </ul>
                 </div>
