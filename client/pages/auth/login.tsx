@@ -1,12 +1,51 @@
 import {NextPage} from "next";
 import Link from "next/link";
+import React, { useState } from "react";
+import axios from "axios";
 
 const Login: NextPage = () => {
 
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState({
+        isSuccess: false,
+        isError: false,
+        message: ''
+    })
+    const inputChangeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+    }
 
+    const submitFormHandler = async (event:React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        await axios.post('/api/user/email-verify', {
+            email: email
+        }).then(response => {
+            if (response.status === 201){
+                setMessage({
+                    isSuccess: true,
+                    isError: false,
+                    message: '이메일로 전송된 로그인 링크를 확인하세요'
+                });
+            }
+        }).catch((error) => {
+            if (error.response.status === 400){
+                setMessage({
+                    isSuccess: false,
+                    isError: true,
+                    message: '올바르지 않은 이메일 형식 입니다.'
+                })
+            }else if (error.response.status === 409){
+                setMessage({
+                    isSuccess: false,
+                    isError: true,
+                    message: error.response.data.message
+                })
+            }
+        })
+    }
     return <>
         <div className={'signIn-container'}>
-            <form className={'signIn-form'}>
+            <form className={'signIn-form'} onSubmit={submitFormHandler}>
                 <div className={'signIn-form-contents'}>
                     <div className={'logo'}>
                         <img src={'/logo.png'} alt={"logo"}/>
@@ -14,13 +53,22 @@ const Login: NextPage = () => {
                     <div className={'title'}>
                         <h3>Codevelop</h3>
                     </div>
+                    {message.isError ?
+                        <div className={'message-box error'}>
+                            <a>{message.message}</a>
+                        </div>
+                        : null
+                    }
+                    {message.isSuccess ?
+                        <div className={'message-box success'}>
+                            <a>{message.message}</a>
+                            <a className={'loginBtn'} href={'/auth/login'}>Login →</a>
+                        </div>
+                        : null
+                    }
                     <div className={'Input'}>
 
-                        <input type={'text'} placeholder={'Email'}/>
-                        <label></label>
-                    </div>
-                    <div className={'Input'}>
-                        <input type={'password'} placeholder={'password'}/>
+                        <input type={'text'} name={'email'} onChange={inputChangeHandler} placeholder={'Email'}/>
                         <label></label>
                     </div>
                     <div className={'button-section'}>
