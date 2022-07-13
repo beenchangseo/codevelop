@@ -1,8 +1,6 @@
 import {NextPage} from "next";
 import React, {useState} from "react";
 import axios from "axios";
-import Link from "next/link";
-import TopNav from "../../components/TopNav";
 
 const Signup: NextPage = () => {
     const [inputs, setInputs] = useState({
@@ -27,7 +25,6 @@ const Signup: NextPage = () => {
             email: inputs.email,
             user_name: inputs.user_name
         }).then(response => {
-            console.log("회원 가입 완료",response)
             if (response.status === 201){
                 setMessage({
                     isSuccess: true,
