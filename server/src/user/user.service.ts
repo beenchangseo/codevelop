@@ -4,12 +4,17 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import {User} from "./entities/user.entity";
 import {Repository} from "typeorm";
 import {EmailVerifyDto} from "./dto/email-verify.dto";
+import {JwtService} from "@nestjs/jwt";
+import {Payload} from "./security/payload.interface";
+import {EmailService} from "../email/email.service";
 
 @Injectable()
 export class UserService {
   constructor(
       @Inject('USER_REPOSITORY')
-      private usersRepository: Repository<User>
+      private usersRepository: Repository<User>,
+      private jwtService: JwtService,
+      private readonly emailService: EmailService,
   ) {
   }
 
@@ -43,6 +48,13 @@ export class UserService {
   }
 
   /*
+   * Find one user entity by Email
+   */
+  async findOneUserByEmail(email: string): Promise<User | undefined>{
+    return await this.usersRepository.findOne({where: {user_email: email}});
+  }
+
+  /*
    * 회원 가입 이메일 보내기
    */
   async SendSignUpConfirmEmail(createUserDto: CreateUserDto){
@@ -53,8 +65,31 @@ export class UserService {
    * 로그인 URL 링크 이메일 전송
    */
   async emailVerify(emailVerifyDto: EmailVerifyDto){
-    if (await this.isEmailExist(emailVerifyDto.email)){
-      console.log(emailVerifyDto.email, '가 있습니다')
-    }
+    const userFind = await this.findOneUserByEmail(emailVerifyDto.email);
+    if (userFind){
+      const payload: Payload = { user_name: userFind.user_name, user_email: userFind.user_email };
+      const accessToken = this.jwtService.sign(payload);
+      const loginUrl = `http://localhost:3000/auth/confirm?signupVerifyToken=${accessToken}`;
+      await this.emailService.signInMail(userFind, loginUrl);
+      //
+      // return {
+      //   accessToken: accessToken
+      // }
+    }else throw new ConflictException('This user does not exist.');
+  }
+
+  /*
+   * jwt token validate
+   */
+  async tokenValidateUser(payload: Payload): Promise<User | undefined>{
+    return await this.findOneUserByEmail(payload.user_email);
+  }
+
+  /*
+   * get Cookie With JwtToken
+   */
+  getCookieWithJwtToken(user: User): string{
+    const payload: Payload = {user_name: user.user_name, user_email: user.user_email};
+    return this.jwtService.sign(payload);
   }
 }
