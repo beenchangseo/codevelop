@@ -1,22 +1,39 @@
+//next.config.js
 /** @type {import('next').NextConfig} */
-// const withCSS = require('@zeit/next-css');
-
 const nextConfig = {
   reactStrictMode: true,
-}
-
-module.exports = {
-  nextConfig: nextConfig,
-  async rewrite(){
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:3001/:path*'
-      }
-    ];
+  async rewrites() {
+    return [{
+      source: '/api/:path*',
+      destination: `http://localhost:3001/:path*`,
+    }];
   }
-  // withCSS: withCSS({})
-}
+};
+
+module.exports = nextConfig;
+
+// /** @type {import('next').NextConfig} */
+// // const withCSS = require('@zeit/next-css');
+//
+// const nextConfig = {
+//   reactStrictMode: true
+// }
+//
+// module.exports = {
+//   // nextConfig: nextConfig,
+//   reactStrictMode: true,
+//   async rewrites() {
+//     return [
+//       {
+//         source: '/api/:path*',
+//         destination: 'http://127.0.0.1:3001/:path*',
+//         basePath: false
+//       }
+//     ]
+//   }
+//
+//   // withCSS: withCSS({})
+// }
 
 
 /*
