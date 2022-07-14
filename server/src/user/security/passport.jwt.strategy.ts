@@ -3,6 +3,7 @@ import {PassportStrategy} from "@nestjs/passport";
 import {ExtractJwt, Strategy, VerifiedCallback} from "passport-jwt";
 import {Payload} from "./payload.interface";
 import {UserService} from "../user.service";
+import {User} from "../entities/user.entity";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -10,14 +11,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         private userService: UserService,
     ) {
         super({
-            jwtFromRequest: ExtractJwt.fromUrlQueryParameter('signupVerifyToken'),
+            jwtFromRequest: ExtractJwt.fromExtractors([
+                ExtractJwt.fromUrlQueryParameter('signupVerifyToken'),
+                ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ]),
             ignoreExpiration: false,
             secretOrKey: 'SECRET_KEY',
         });
     }
 
     async validate(payload: Payload, done: VerifiedCallback): Promise<any>{
-        const user = await this.userService.tokenValidateUser(payload);
+        const user: User | undefined = await this.userService.getUserWithPayload(payload);
         if(!user) {
             return done(new UnauthorizedException({message: 'user does not exist'}), false);
         }
