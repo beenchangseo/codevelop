@@ -6,6 +6,7 @@ import axios from "axios";
 const Login: NextPage = () => {
 
     const [email, setEmail] = useState('');
+    const [emailHost, setEmailHost] = useState('');
     const [message, setMessage] = useState({
         isSuccess: false,
         isError: false,
@@ -26,6 +27,7 @@ const Login: NextPage = () => {
                     isError: false,
                     message: '이메일로 전송된 로그인 링크를 확인하세요'
                 });
+                setEmailHost(email.split('@')[1]);
             }
         }).catch((error) => {
             if (error.response.status === 400){
@@ -44,131 +46,88 @@ const Login: NextPage = () => {
         })
     }
     return <>
-        <div className={'signIn-container'}>
-            <form className={'signIn-form'} onSubmit={submitFormHandler}>
-                <div className={'signIn-form-contents'}>
-                    <div className={'logo'}>
-                        <img src={'/logo.png'} alt={"logo"}/>
+        <div className={'signUp-container'}>
+            <h3>WELCOME CODEVELOPE</h3>
+            <div className={'signUp-box'}>
+                {message.isError ?
+                    <div className={'message-box error'}>
+                        <a>{message.message}</a>
                     </div>
-                    <div className={'title'}>
-                        <h3>Codevelop</h3>
+                    : null
+                }
+                {message.isSuccess ?
+                    <div className={'message-box success'}>
+                        <a>{message.message}</a>
+                        <a className={'loginBtn'} onClick={()=>{window.open(`https://${emailHost}`)}}>Login →</a>
                     </div>
-                    {message.isError ?
-                        <div className={'message-box error'}>
-                            <a>{message.message}</a>
-                        </div>
-                        : null
-                    }
-                    {message.isSuccess ?
-                        <div className={'message-box success'}>
-                            <a>{message.message}</a>
-                            <a className={'loginBtn'} href={'/auth/login'}>Login →</a>
-                        </div>
-                        : null
-                    }
-                    <div className={'Input'}>
+                    : null
+                }
+                <form className={'signUp-form'} onSubmit={submitFormHandler}>
+                    <label>Email</label>
+                    <div>
+                        <input type={'text'} name={'email'} onChange={inputChangeHandler} value={email} placeholder={'Email'}/>
+                    </div>
 
-                        <input type={'text'} name={'email'} onChange={inputChangeHandler} placeholder={'Email'}/>
-                        <label></label>
-                    </div>
-                    <div className={'button-section'}>
-                        <ul>
-                            <li>
-                                <button>Sign In</button>
-                            </li>
-                            <li>
-                                <Link href={'/auth/signup'}>
-                                    <button>Sign Up</button>
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
+                    <button style={{width:'100%', marginTop:'30px'}}>Continue</button>
+                </form>
+            </div>
         </div>
+
         <style jsx>{`
-          .signIn-container{
+          .signUp-container{
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100vw;
             height: 100vh;
-          }
-          .signIn-form{
-            width: 260px;
-            border-radius: 8px;
-            background-color: #284b63cc;
-          }
-          .signIn-form-contents{
-            
-          }
-          .logo{
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-          }
-          .title{
-            display: flex;
             color: white;
-            justify-content: center;
           }
-          .title > h3{
-            margin-top: 0;
+          .signUp-box{
+            padding: 20px;
+            border: 3px solid white;
+            border-radius: 7px;
+          }
+          .signUp-form{
+            color: white;
+          }
+          .signUp-form > div > input{
+            padding: 4px 4px 4px 15px;
+            background-color: transparent;
+            border-radius: 7px;
+            border: 1px solid #d1d5db;
+            width: 250px;
+            height: 20px;
+            color: white;
+          }
+          .message-box{
+            padding: 12px;
             margin-bottom: 20px;
+            border-radius: 7px;
+            font-size: 10px;
           }
-          .Input{
-            display: flex;
-            justify-content: center;
+          .error{
+            background-color: #fef2f2;
+            color: red;
           }
-          .Input > input{
-            border: 0;
-            margin-left: 12px;
-            background: transparent;
-            color: #ffffffb3;
-            border-bottom: 1px solid #58a4b0;
-            width: 65%;
-            font-size: 14px;
+          .success{
+            background-color: #f0fdf4;
+            color: #15803d
           }
-          label{
-            color: white;
-            font-size: 14px;
-            margin-top: 17px;
-          }
-          .Input input[type=text] ~ label::before {
-            content: "";
-          }
-          .Input input[type=password] ~ label::before {
-            content: "";
-          }
-          .button-section{
-            margin-top: 15px;
-          }
-          .button-section>ul{
+          .loginBtn{
+            float: right;
+            text-decoration: none;
+            color: #15803d;
+            font-weight: bold;
+            font-size: 12px;
+            margin: 0;
             padding: 0;
-            margin-left: 25px;
-            margin-right: 25px;
-            display: flex;
-            justify-content: space-between;
-            list-style: none;
-          }
-          .button-section>ul:before{
-              display: inline-block;
-              width: 1px;
-              content: '';
-          }
-          .button-section>ul:after{
-              display: inline-block;
-              width: 1px;
-              content: '';
-          }
-          .button-section>ul>li>button{
-            width: 65px;
-            padding: 7px;
-            border: 0;
-            border-radius: 4px;
-            background-color: #58a4b0;
-            color: white;
             cursor: pointer;
+          }
+          button{
+            border-radius: 7px;
+            padding: 10px;
+            border: 0;
           }
         `}</style>
     </>
