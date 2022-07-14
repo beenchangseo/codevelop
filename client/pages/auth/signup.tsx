@@ -12,7 +12,7 @@ const Signup: NextPage = () => {
         isError: false,
         message: ''
     })
-    const inputChangHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {value, name} = event.target;
         setInputs({
             ...inputs,
@@ -62,12 +62,12 @@ const Signup: NextPage = () => {
                 <form className={'signUp-form'} onSubmit={submitFormHandler}>
                     <label>Name</label>
                     <div>
-                        <input type={'text'} name={'user_name'} onChange={inputChangHandler} value={inputs.user_name} placeholder={'Name'}/>
+                        <input type={'text'} name={'user_name'} onChange={inputChangeHandler} value={inputs.user_name} placeholder={'Name'}/>
                     </div>
                     <br/>
                     <label>Email</label>
                     <div>
-                        <input type={'text'} name={'email'} onChange={inputChangHandler} value={inputs.email} placeholder={'Email'}/>
+                        <input type={'text'} name={'email'} onChange={inputChangeHandler} value={inputs.email} placeholder={'Email'}/>
                     </div>
 
                     <button style={{width:'100%', marginTop:'30px'}}>Create Account</button>
