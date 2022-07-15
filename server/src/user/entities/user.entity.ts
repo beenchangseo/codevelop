@@ -14,5 +14,7 @@ export class User {
     @IsEmail()
     user_email: string;
 
+    @Column()
+    user_login_token: string;
 
 }
