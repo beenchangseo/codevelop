@@ -10,7 +10,7 @@ import {
   ValidationPipe,
   UseGuards,
   Req,
-  Request, UnauthorizedException, Res
+  Request, UnauthorizedException, Res, Query
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -41,21 +41,31 @@ export class UserController {
     return this.userService.emailVerify(emailVerifyDto);
   }
 
-  /*
-   * 로그인 URL 검증 API
-   */
   @Get('confirm')
+  async isConfirm(
+      @Query('signInVerifyToken') signInVerifyToken: string,
+      @Res() res
+  ){
+    const jwt: string = await this.userService.getJwtByUserLoginToken(signInVerifyToken);
+      res.setHeader('Authorization', 'Bearer '+jwt);
+      res.cookie('jwt',jwt,{
+        // httpOnly: true,
+        maxAge: (60 * 1000) * 1
+      });
+      return res.send({
+        message: 'success'
+      });
+  }
+
+  /*
+   * Jwt token verify
+   */
+  @Get('token-verify')
   @UseGuards(AuthGuard)
-  isConfirm( @Request() request, @Res() res ): any{
+  isTokenVerify(@Request() request): any{
     const user: User | undefined = request.user;
-    const jwt = this.userService.getCookieWithJwtToken(user);
-    res.setHeader('Authorization', 'Bearer '+jwt);
-    res.cookie('jwt',jwt,{
-      httpOnly: true,
-      maxAge: 60 * 1000
-    });
-    return res.send({
-      message: 'success'
-    });
+    return {
+      user_name: user.user_name,
+    };
   }
 }
