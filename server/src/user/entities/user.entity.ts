@@ -14,7 +14,9 @@ export class User {
     @IsEmail()
     user_email: string;
 
-    @Column()
+    @Column({
+        default: ''
+    })
     user_login_token: string;
 
 }
