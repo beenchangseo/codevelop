@@ -68,7 +68,7 @@ const Login: NextPage = () => {
                         <input type={'text'} name={'email'} onChange={inputChangeHandler} value={email} placeholder={'Email'}/>
                     </div>
 
-                    <button style={{width:'100%', marginTop:'30px'}}>Continue</button>
+                    <button className={'continueBtn'} style={{width:'100%', marginTop:'30px'}}>Continue</button>
                 </form>
             </div>
         </div>
@@ -84,7 +84,7 @@ const Login: NextPage = () => {
             color: white;
           }
           .signUp-box{
-            padding: 20px;
+            padding: 30px;
             border: 3px solid white;
             border-radius: 7px;
           }
@@ -124,10 +124,17 @@ const Login: NextPage = () => {
             padding: 0;
             cursor: pointer;
           }
-          button{
+          .continueBtn{
+            border: 1px solid white;
             border-radius: 7px;
             padding: 10px;
-            border: 0;
+            cursor: pointer;
+          }
+          .continueBtn:hover{
+            background-color: #263747;
+            border: 1px solid white;
+            border-radius: 7px;
+            color: white;
           }
         `}</style>
     </>

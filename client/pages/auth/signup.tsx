@@ -70,7 +70,7 @@ const Signup: NextPage = () => {
                         <input type={'text'} name={'email'} onChange={inputChangeHandler} value={inputs.email} placeholder={'Email'}/>
                     </div>
 
-                    <button style={{width:'100%', marginTop:'30px'}}>Create Account</button>
+                    <button className={'createBtn'} style={{width:'100%', marginTop:'30px'}}>Create Account</button>
                 </form>
             </div>
         </div>
@@ -86,7 +86,7 @@ const Signup: NextPage = () => {
             color: white;
           }
           .signUp-box{
-            padding: 20px;
+            padding: 30px;
             border: 3px solid white;
             border-radius: 7px;
           }
@@ -125,10 +125,17 @@ const Signup: NextPage = () => {
             margin: 0;
             padding: 0;
           }
-          button{
+          .createBtn{
+            border: 1px solid white;
             border-radius: 7px;
             padding: 10px;
-            border: 0;
+            cursor: pointer;
+          }
+          .createBtn:hover{
+            background-color: #263747;
+            border: 1px solid white;
+            border-radius: 7px;
+            color: white;
           }
         `}</style>
     </>
