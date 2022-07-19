@@ -2,9 +2,11 @@
     position: relative;
     display: flex;
     background-color: #0c151c;
-    padding: 0 1rem;
+    padding: 0 2rem;
     align-items: center;
     color: white;
+    max-width: 80rem;
+    width: 100%;
 }
 .navbarLogo{
     display: inline-block;
