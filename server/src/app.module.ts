@@ -12,11 +12,12 @@ import { EmailModule } from './email/email.module';
     MailerModule.forRootAsync({
       useFactory: () => ({
         transport: {
-          host: 'smtp.naver.com',
+          host: 'smtp.gmail.com',
           port: 587,
+          secure: false,
           auth: {
-            user: 'seochangbin_1',
-            pass: '18tkfkdgo'
+            user: 'beenchangseo',
+            pass: 'embuecvidrklhutd'
           },
         },
         defaults: {
