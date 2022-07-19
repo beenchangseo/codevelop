@@ -50,7 +50,7 @@ export class UserController {
       res.setHeader('Authorization', 'Bearer '+jwt);
       res.cookie('jwt',jwt,{
         // httpOnly: true,
-        maxAge: (60 * 1000) * 1
+        maxAge: (60 * 1000) * 60 * 24
       });
       return res.send({
         message: 'success'
