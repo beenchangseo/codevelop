@@ -1,9 +1,9 @@
-import {Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
+import {BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
 import {IsEmail} from "class-validator";
 
 @Entity()
 @Unique(['user_email','user_name'])
-export class User {
+export class User extends BaseEntity{
     @PrimaryGeneratedColumn()
     user_no: number;
 
