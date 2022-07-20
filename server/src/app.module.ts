@@ -4,6 +4,7 @@ import { DatabaseModule } from './database/database.module';
 import {MailerModule} from "@nestjs-modules/mailer";
 import {EjsAdapter} from "@nestjs-modules/mailer/dist/adapters/ejs.adapter";
 import { EmailModule } from './email/email.module';
+import { ProblemModule } from './problem/problem.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { EmailModule } from './email/email.module';
       }),
     }),
     EmailModule,
+    ProblemModule,
   ],
   controllers: [],
   providers: [],
