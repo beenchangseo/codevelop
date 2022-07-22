@@ -1,5 +1,6 @@
 import styles from "../../styles/components/learn/challengeNav.module.css";
 
+
 const ChallengeNav = () => {
     return (
         <>

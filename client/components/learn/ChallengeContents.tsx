@@ -11,7 +11,7 @@ const ChallengeContents = () => {
     function handleEditorDidMount(editor: any, monaco: Monaco) {
         // here is the editor instance
         // you can store it in `useRef` for further usage
-        console.log("hhh", editor, monaco);
+        // console.log("hhh", editor, monaco);
         editorRef.current = editor;
     }
 
