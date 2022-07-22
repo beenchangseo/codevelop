@@ -8,12 +8,18 @@ export class Problem extends BaseEntity{
     @Column()
     problem_title: string;
 
-    @Column()
+    @Column('longtext',{})
     problem_question: string;
 
-    @Column()
+    @Column('longtext',{})
     problem_input: string;
 
-    @Column()
+    @Column('longtext', {})
     problem_output: string;
+
+    @Column({default: 1})
+    problem_level: number;
+
+    @Column({default: 0})
+    problem_challenger: number;
 }
