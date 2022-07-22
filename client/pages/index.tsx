@@ -3,6 +3,7 @@ import axios from "axios";
 import cookies from "next-cookies";
 import {useState} from "react";
 import Link from "next/link";
+import Footer from "../components/Footer";
 
 interface HomePageProps{
   user_name: string;
@@ -30,12 +31,15 @@ const Home: NextPage<HomePageProps> = (props: HomePageProps) => {
       </div>
       <div className={'box'}>
         {loginUser === null ?
-            <button className={'btn'}><Link href={'/learn/demo'}><a>Go to start →</a></Link></button>
-            : <button className={'btn'}><Link href={'/learn/demo'}><a>Go to learn →</a></Link></button>}
+            <button className={'btn'}><Link href={'/problem'}><a>Go to start →</a></Link></button>
+            : <button className={'btn'}><Link href={'/problem'}><a>Go to learn →</a></Link></button>}
       </div>
       <div className={'box'}>
         <img src={'/icons/programming.gif'} width={400} height={300} style={{marginBottom: 30}}/>
       </div>
+    </div>
+    <div className={'footer'} style={{backgroundColor: "#263747"}}>
+      <Footer/>
     </div>
     <style jsx>{`
       .index-container {

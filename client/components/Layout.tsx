@@ -1,6 +1,7 @@
-import {ReactElement} from "react";
+import {ReactElement, useEffect} from "react";
 import TopNav from "./TopNav";
 import Footer from "./Footer";
+import {NextRouter, useRouter} from "next/router";
 
 
 type LayoutProps = {
@@ -8,24 +9,28 @@ type LayoutProps = {
 }
 
 const Layout = ({children}: LayoutProps) => {
-
+    const router:NextRouter = useRouter();
+    useEffect(()=>{
+        console.log(router)
+    },[router])
     return(
         <>
-            <div className={'nav'} style={{
-                position: "sticky",
-                top: 0,
-                backgroundColor: "#0c151c",
-                justifyContent: "center",
-                display: "flex"
-            }}>
+            <div className={'nav'}>
                 <TopNav user_name={children.props.user_name}/>
             </div>
-            <div className={'main'} style={{backgroundColor: "#263747"}}>
+            <div className={'main'}>
                 {children}
             </div>
-            <div className={'footer'} style={{backgroundColor: "#263747"}}>
-                <Footer/>
-            </div>
+            <style jsx>{`
+              .main{
+                background-color: #263747;
+              }
+              .nav{
+                position: sticky;
+                top: 0;
+                background-color: #0c151c;
+              }
+            `}</style>
         </>
     )
 }
